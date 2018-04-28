@@ -8,7 +8,7 @@ import {
   decrement,
   decrementAsync
 } from './reducer';
-import { BoilerplatePath } from '../Boilerplate';
+import { BoilerplatePath } from '../../Routes';
 
 const mapStateToProps = (rootState, ownProps) => {
   return {

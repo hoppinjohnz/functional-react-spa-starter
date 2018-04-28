@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { HomePath } from '../Routes/Home';
-import { BoilerplatePath } from '../Routes/Boilerplate';
+import { HomePath, BoilerplatePath } from '../Routes';
 
 const mapStateToProps = (rootState, ownProps) => {
   return {};
