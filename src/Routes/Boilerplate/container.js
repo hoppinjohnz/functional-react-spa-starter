@@ -25,9 +25,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     return (
       <div className="page-body boilerplate">
         <h1>Boilerplate</h1>
-        {error ? <p>{error}</p> : null}
-        {gif_url === null ? (
-          <div className="gif">Loading...</div>
+        {error ? (
+          <div className="gif error">{error}</div>
+        ) : gif_url === null ? (
+          <div className="gif loading">Loading...</div>
         ) : (
           <div className="gif" style={{ backgroundImage: `url(${gif_url})` }} />
         )}

@@ -69,6 +69,11 @@ export const load_new_gif_url = () => {
       payload: null
     });
 
+    dispatch({
+      type: SET_ERROR,
+      payload: null
+    });
+
     try {
       const gif_url = await BoilerplateService.get_random_gif_url();
 
@@ -89,6 +94,11 @@ export const load_new_gif_url = () => {
       dispatch({
         type: SET_ERROR,
         payload: error
+      });
+
+      dispatch({
+        type: SET_BUSY,
+        payload: false
       });
     }
   };

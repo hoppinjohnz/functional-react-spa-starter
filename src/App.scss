@@ -4,8 +4,14 @@ body {
 }
 
 header {
-  a {
-    display: inline-block;
-    margin-right: 1rem;
+  nav {
+    a {
+      display: inline-block;
+      padding: .5rem;
+
+      &.active {
+        border: 1px solid grey;
+      }
+    }
   }
 }

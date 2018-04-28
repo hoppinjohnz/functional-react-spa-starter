@@ -6,5 +6,13 @@
     background-position: center center;
     background-repeat: no-repeat;
     margin: 0;
+
+    &.loading,
+    &.error {
+      line-height: 200px;
+      word-wrap: none;
+      text-align: center;
+      border: 1px dashed black;
+    }
   }
 }
