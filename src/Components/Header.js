@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { HomePath, BoilerplatePath } from '../Routes';
 
 const mapStateToProps = (rootState, ownProps) => {
-  console.log(rootState.router);
   return {
     current_path: rootState.router.location.pathname
   };
