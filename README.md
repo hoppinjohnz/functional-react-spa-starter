@@ -18,7 +18,7 @@ Details regarding the customizations on top of the default `create-react-app` be
 
 ## react-router
 
-`react-router` is used to handle client side routing. It provides a convenient interface to match URL paths to route comoonents. `react-router-redux` is included to bind the router state to redux by placing a `routerReducer` on the root reducer so that any redux connected component has scope to the current route and history. `react-router-redux` also includes a `push` function that navigates to a path by dispatching a redux action.
+`react-router` is used to handle client side routing. It provides a convenient interface to match URL paths to route components. `react-router-redux` is included to bind the router state to redux by placing a `routerReducer` on the root reducer so that any redux connected component has scope to the current route and history. `react-router-redux` also includes a `push` function that navigates to a path by dispatching a redux action.
 
 ## route based code splitting with webpack based on dynamic imports
 
