@@ -2,11 +2,11 @@
 
 Boilerplate for a client side single page web app using `react` for rendering, `react-router` for routing, `redux` for state management, and `webpack` for bundling. `react` is a UI library that uses a lightweight DOM abstraction (virtual DOM) that sits between the code and the DOM the browser renders. `react` allows the developer to build the application all in javascript using JSX to represent HTML. Its core class is `Component` which contains methods for state, render, and other "lifecycle" methods. Application logic is defined in a scaffold of these `Component`s. This logic generates a set of virtual DOM nodes that are then diffed against the set of nodes that generated the DOM that the client's browser has currently rendered and then that minimal set of changes is patched to the DOM.
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). Find its very thorough and informative readme there. The bulk of the information about the project including instructions related to building the bundle, updating the scripts, and further customization are documented there.
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). Find its very thorough and informative readme there. The bulk of the information about the project including instructions related to building the bundle, updating the scripts, and further customization is documented there.
 
 Details regarding the customizations on top of the default `create-react-app` behavior are described below.
 
-## SCSS
+## scss
 
 `node-sass-chokidar` is used to compile scss to css. When the project is running in development mode or built, `node-sass-chokidar` watches for any modifications to `*.scss` files in the project and automatically compiles them to `.css`, outputting them next to the original `.scss` files. Ensure that the `.css` files are the ones included in js. Since `*.scss` are the stylesheet source files, `*.css` in in the `.gitignore` file.
 
