@@ -2,19 +2,12 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import './container.css';
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from './reducer';
+import { increment, decrement } from './reducer';
 import { BoilerplatePath } from '../../Routes';
 
 const mapStateToProps = (rootState, ownProps) => {
   return {
-    count: rootState.Home.count,
-    isIncrementing: rootState.Home.isIncrementing,
-    isDecrementing: rootState.Home.isDecrementing
+    count: rootState.Home.count
   };
 };
 
@@ -28,17 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.preventDefault();
       dispatch(increment());
     },
-    incrementAsync_handler: e => {
-      e.preventDefault();
-      dispatch(incrementAsync());
-    },
     decrement_handler: e => {
       e.preventDefault();
       dispatch(decrement());
-    },
-    decrementAsync_handler: e => {
-      e.preventDefault();
-      dispatch(decrementAsync());
     }
   };
 };
@@ -46,13 +31,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(mapStateToProps, mapDispatchToProps)(
   ({
     count,
-    isIncrementing,
-    isDecrementing,
     navigate_to_boilerplate_handler,
     increment_handler,
-    incrementAsync_handler,
-    decrement_handler,
-    decrementAsync_handler
+    decrement_handler
   }) => {
     return (
       <div className="page-body home">
@@ -68,27 +49,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
         <div className="count-actions">
           <form onSubmit={increment_handler}>
-            <button type="submit" disabled={isIncrementing}>
-              Increment
-            </button>
-          </form>
-
-          <form onSubmit={incrementAsync_handler}>
-            <button type="submit" disabled={isIncrementing}>
-              Increment Async
-            </button>
+            <button type="submit">Increment</button>
           </form>
 
           <form onSubmit={decrement_handler}>
-            <button type="submit" disabled={isDecrementing}>
-              Decrement
-            </button>
-          </form>
-
-          <form onSubmit={decrementAsync_handler}>
-            <button type="submit" disabled={isDecrementing}>
-              Decrement Async
-            </button>
+            <button type="submit">Decrement</button>
           </form>
         </div>
       </div>
