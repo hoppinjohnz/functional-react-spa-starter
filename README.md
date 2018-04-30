@@ -96,7 +96,6 @@ Each route's folder contains
 
 * `index.js`: pure boilerplate. This file should never need to get touched. It includes the dynamic import for the route's container and includes the route reducer's `on_route_match` function which gets dispatched when the route mounts.
 * `container.js`: entry point for render. This file contains the route's mapStateToProps and mapDispatchToProps functions and its render function.
-
 * `reducer.js`: this route's reducer and actions, including the boilerplated `on_route_match`
 * `container.scss`: styles for this route
 
