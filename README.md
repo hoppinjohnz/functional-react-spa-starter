@@ -18,9 +18,9 @@ Details regarding the customizations on top of the default `create-react-app` be
 
 `redux-thunk` is used to handle asynchronous actions. `redux-thunk` is redux middleware. It allows us to write our action creators as thunks (functions that return functions) rather than functions that return actions. The returned functions are then executed by `redux-thunk` middleware, passing `dispatch` and `getState` as arguments. They can have side effects like executing asynchronous API calls. With `dispatch` and `getState` they can also dispatch actions and read the current state.
 
-## react-router
+## react-router-redux
 
-`react-router` is used to handle client side routing. It provides a convenient interface to match URL paths to route components. `react-router-redux` is included to bind the router state to redux by placing a `routerReducer` on the root reducer so that any redux connected component has scope to the current route and history. `react-router-redux` also includes a `push` function that navigates to a path by dispatching a redux action.
+`react-router-redux` is used to handle client side routing. It is the redux-integrated version of the popular `react-router` and provides a convenient interface to match URL paths to route components. `react-router-redux` binds the router state to redux by placing a `routerReducer` on the root reducer so that any redux connected component has scope to the current route and history. It also includes a `push` function that navigates to a path by dispatching a redux action.
 
 ## route based code splitting with webpack based on dynamic imports
 
@@ -28,7 +28,7 @@ We define an `AsyncWrapper` component that takes a function to import a componen
 
 ## server side rendering static site generator via react-snapshot
 
-`react-snapshot` is used to generate static content "snapshots" of each route at build time. It spins up a server and renders the app in a jsdom environment and saves the HTML generated. This HTML is then served whenever that route is hit, effectively pre-rendering anything that doesn't need state. The HTML includes a js bundle to render the rest of the app. This allows robots to index the static content in the app for search engines and helps load times. NOTE: because of the jsdom pre-render, having each route do things like setting the HTML page <title> is fine.
+`react-snapshot` is used to generate static content "snapshots" of each route at build time. It spins up a server and renders the app in a jsdom environment and saves the HTML generated. This HTML is then served whenever that route is hit, meaning that anything that doesn't need state is already pre-rendered. The HTML includes a js bundle to render the rest of the app. This allows robots to index the static content in the app for search engines and helps load times. NOTE: because of the jsdom pre-render, having each route do things like setting the HTML page <title> is fine.
 
 # Project structure
 
@@ -51,6 +51,7 @@ functional-react-spa-starter/
       Header.js
       RouteLoading.js
     Routes/
+      index.js
       Home/
         index.js
         container.js
