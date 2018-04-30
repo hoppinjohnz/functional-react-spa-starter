@@ -12,7 +12,7 @@ Details regarding the customizations on top of the default `create-react-app` be
 
 ## redux
 
-`redux` is a state management library. It works by creating a global state object and exposing functions to connect component state to the central store. Redux features only one way to alter state, "dispatching an action to the store". The "store" is the global state object. A store is comprised of one or more "reducers". A "reducer" is a function that takes in a chunk of state and an "action" and returns a new chunk of state. An "action" is an object containing a `type` and any other data needed to update state. This is a _Good Idea™_ because it allows for the decoupling of state changing business logic from render logic and makes UI components 100% pure render functions. The general unidirectional pattern is: state passed down -> transform into render props -> render function returns vDOM bound w/ event listeners -> (react vDOM diff/patch -> update real DOM -> paint to screen) -> user interacts with the app and fires event listener(s) -> listener executes the proper business logic and dispatches an action to a reducer -> passes new state down.
+`redux` is a state management library. It works by creating a global state object and exposing functions to connect component state to the central store. Redux features only one way to alter state, "dispatching an action to the store". The "store" is the global state object. A store is comprised of one or more "reducers". A "reducer" is a function that takes in a chunk of state and an "action" and returns a new chunk of state. An "action" is an object containing a `type` and any other data needed to update state. This is a _Good Idea™_ because it allows for the decoupling of state changing business logic from render logic and makes UI components 100% pure render functions.
 
 ## redux-thunk
 
@@ -69,4 +69,19 @@ functional-react-spa-starter/
       RootReducer.js
 ```
 
-# MORE TBD
+# Architecture
+
+The general pattern of the app can be described as a loop. We call this the "main loop". It is:
+
+```
+ __ transform state into render props
+|  |
+|  render returns vDOM bound w/ event listeners
+|  |
+|  (react vDOM diff/patch > react updates real DOM > browser paints to screen > user interacts with the elements on the screen and fires event listener)
+|  |
+|  listener executes the proper business logic and uses redux to dispatch an action to a reducer
+|  |
+|  redux passes new state down
+|__|
+```
