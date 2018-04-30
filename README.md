@@ -43,11 +43,6 @@ functional-react-spa-starter/
     index.html
     favicon.ico
   src/
-    App.scss
-    App.js
-    App.test.js
-    index.js
-    registerServiceWorker.js
     Components/
       AsyncWrapper.js
       Header.js
@@ -69,6 +64,11 @@ functional-react-spa-starter/
     Store/
       index.js
       RootReducer.js
+    App.js
+    App.scss
+    App.test.js
+    index.js
+    registerServiceWorker.js
 ```
 
 Each route's folder contains
