@@ -69,6 +69,17 @@ functional-react-spa-starter/
       RootReducer.js
 ```
 
+Each route's folder contains
+
+* `index.js`: pure boilerplate. This file should never need to get touched. It includes the dynamic import for the route's container and includes the route reducer's `on_route_match` function which gets dispatched when the route mounts.
+* `container.js`: entry point for render. This file contains the route's mapStateToProps and mapDispatchToProps functions and its render function.
+* `reducer.js`: this route's reducer and actions, including the boilerplated `on_route_match`
+* `container.scss`: styles for this route
+
+To create a new route, simply copy another route's folder and delete old code. Boilerplated file and function names do not need to change. the `src/Routes/index.js` file contains the export of all the routes, so be sure to update it with your new route. Similary `src/store/RootReducer.js` contains the export of all the reducers. You will need to update it with your new route's reducer.
+
+`src/App.js` contains the router context and imports all the routes, so any common components, like `src/Components/Header`, are rendered here.
+
 # Architecture
 
 The general pattern of the app can be described as a loop. We call this the "main loop". It is:
@@ -88,17 +99,12 @@ The general pattern of the app can be described as a loop. We call this the "mai
 
 This is a _Good Idea™_ because it allows for the decoupling of state changing business logic from render logic and makes all pieces of UI 100% pure render functions. Combined with good naming this creates a very easy to reason with framework that is performant and has great coverage thanks to the folks at facebook and the amazing community that supports the react ecosystem.
 
-### Opinions
+# Opinions
 
 Never mutate or destroy data anywhere. Always transform it into something new. No render function should transform its props data into anything but render or assert any business logic. Any data transformation should be done in formatters at the service level. Each container's mapStateToProps pulls the route reducer's state off the rootState and maps it into props. mapDispatchToProps glues actions to event listeners and then maps them into props. Render functions simply display those props. Adhering to this means that bugs are easily identified. If display is incorrect or an event listener does not fire it is in render. Otherwise, it is in business logic.
 
-Each route's folder contains
+Advantages of this include almost never having to touch DOM. Exclusions include resetting the window scroll state, and super opinion:
 
-* `index.js`: pure boilerplate. This file should never need to get touched. It includes the dynamic import for the route's container and includes the route reducer's `on_route_match` function which gets dispatched when the route mounts.
-* `container.js`: entry point for render. This file contains the route's mapStateToProps and mapDispatchToProps functions and its render function.
-* `reducer.js`: this route's reducer and actions, including the boilerplated `on_route_match`
-* `container.scss`: styles for this route
+Always use semantic elements to listen to things that alter state or the UI. This means react-router-dom `<Link>` for navigation or `<form>` for altering state. Listening to a `<form>`'s `onSubmit` event has many advantages. No having to deal with coverage of device cases, all of that is already implemented by the user's browser. It is accessible by default. Additionally, do not track form element state. Rather, simply harvest the form's input values onSubmit. Not controlling the form element state may seem counterintuitive and indeed it is an antipattern, but the fact is that in this case the DOM is the source of truth. What the user sees is the truth, and that is dictated by the DOM, not our virtual DOM. Therefore, interacting with the DOM to set form element state is necessary. If form state is controlled via the `value` attribute then a race condition is introduced between what we render to the screen and what the user types next. If it is not controlled, then we cannot reset a form element's `value` after it has been submitted. Instead, set the `defaultValue` attribute on props then either ensure the node is cleared from the DOM before rerender or set the DOM node `value`. Ensuring that the node is cleared from the DOM before rerender introduces significant complexity into render. If `value` is never controlled then the complexity of managing DOM touching to set form `value` is less. Since `value` is not controlled, no "merge conflict" exists between react's vDOM and the real DOM. If this is the _only_ permissible DOM touching, I find this to be reasonable.
 
-To create a new route, simply copy another route's folder and delete old code. Boilerplated file and function names do not need to change. the `src/Routes/index.js` file contains the export of all the routes, so be sure to update it with your new route. Similary `src/store/RootReducer.js` contains the export of all the reducers. You will need to update it with your new route's reducer.
-
-`src/App.js` contains the router context and imports all the routes, so any common components, like `src/Components/Header`, are rendered here.
+When possible, do not render elements that do not need to be on the screen. Do not use css to conditionally display things. If necessary, like in cases of things like animation, ensure that only the container element is rendered when in hidden mode and only apply animation styles to the container css class. This is a security measure so users cannot access "hidden" form elements with a keyboard or otherwise. Even unsensitive elements should not be able to be accessed unless visible on the screen.

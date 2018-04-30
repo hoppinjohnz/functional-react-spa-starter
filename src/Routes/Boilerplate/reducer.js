@@ -51,9 +51,6 @@ export const on_route_match = () => {
 
     // react-snapshot does build time pre rendering via jsdom
     document.title = 'Boilerplate';
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    document.querySelector('html').scrollTop = 0;
   };
 };
 

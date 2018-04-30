@@ -18,6 +18,11 @@ export default ({ importComponent, mountCallback, el_loading }) =>
         store.dispatch(mountCallback());
       }
 
+      // reset window scroll state
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      document.querySelector('html').scrollTop = 0;
+
       this.setState({
         component
       });
