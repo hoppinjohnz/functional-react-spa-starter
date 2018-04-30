@@ -8,7 +8,7 @@ export const BoilerplatePath = '/boilerplate';
 
 export default () => (
   <main>
-    <Route exact path={HomePath} component={Home} />,
+    <Route exact path={HomePath} component={Home} />
     <Route exact path={BoilerplatePath} component={Boilerplate} />
   </main>
 );
