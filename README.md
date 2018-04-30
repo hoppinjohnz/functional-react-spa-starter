@@ -12,7 +12,7 @@ Details regarding the customizations on top of the default `create-react-app` be
 
 ## redux
 
-`redux` is a state management library. It works by creating a global state object and exposing functions to connect component state to the central store. Redux features only one way to alter state, "dispatching an action to the store". The "store" is the global state object. A store is comprised of one or more "reducers". A "reducer" is a function that takes in a chunk of state and an "action" and returns a new chunk of state. An "action" is an object containing a `type` and any other data needed to update state. This is a _Good Idea™_ because it allows for the decoupling of state changing business logic from render logic and makes UI components 100% pure render functions.
+`redux` is a state management library. It works by creating a global state object and exposing functions to connect component state to the central store. Redux features only one way to alter state, "dispatching an action to the store". The "store" is the global state object, comprised of one or more "reducers". A "reducer" is a function that takes in a chunk of state and an "action" and returns a new chunk of state. An "action" is an object containing a `type` and optionally, any other data needed to update state. This is typically passed on `action.payload`.
 
 ## redux-thunk
 
@@ -80,8 +80,26 @@ The general pattern of the app can be described as a loop. We call this the "mai
 |  |
 |  (react vDOM diff/patch > react updates real DOM > browser paints to screen > user interacts with the elements on the screen and fires event listener)
 |  |
-|  listener executes the proper business logic and uses redux to dispatch an action to a reducer
+|  listener executes the proper business logic and dispatches an action to a reducer
 |  |
-|  redux passes new state down
+|  (redux generates new state)
 |__|
 ```
+
+This is a _Good Idea™_ because it allows for the decoupling of state changing business logic from render logic and makes all pieces of UI 100% pure render functions. Combined with good naming this creates a very easy to reason with framework that is performant and has great coverage thanks to the folks at facebook and the amazing community that supports the react ecosystem.
+
+### Opinions
+
+Never mutate or destroy data anywhere. Always transform it into something new. No render function should transform its props data into anything but render or assert any business logic. Any data transformation should be done in formatters at the service level. Each container's mapStateToProps pulls the route reducer's state off the rootState and maps it into props. mapDispatchToProps glues actions to event listeners and then maps them into props. Render functions simply display those props. Adhering to this means that bugs are easily identified. If display is incorrect or an event listener does not fire it is in render. Otherwise, it is in business logic.
+
+Each route's folder contains
+
+* `index.js`: pure boilerplate. This file should never need to get touched. It includes the dynamic import for the route's container and includes the route reducer's `on_route_match` function which gets dispatched when the route mounts.
+* `container.js`: entry point for render. This file contains the route's mapStateToProps and mapDispatchToProps functions and its render function.
+
+* `reducer.js`: this route's reducer and actions, including the boilerplated `on_route_match`
+* `container.scss`: styles for this route
+
+To create a new route, simply copy another route's folder and delete old code. Boilerplated file and function names do not need to change. the `src/Routes/index.js` file contains the export of all the routes, so be sure to update it with your new route. Similary `src/store/RootReducer.js` contains the export of all the reducers. You will need to update it with your new route's reducer.
+
+`src/App.js` contains the router context and imports all the routes, so any common components, like `src/Components/Header`, are rendered here.
